@@ -12,9 +12,10 @@ class Date{
     int getMonth();
     int getYear();
     std::string toString();
-    bool operator <(const Date& other);
-    bool operator >(const Date& other);
-    bool operator ==(const Date& other);
-    bool operator <=(const Date& other);
-    bool operator >=(const Date& other);
+    bool operator<(Date other);
+    bool operator>(Date other);
+    bool operator==(Date other);
+    bool operator>=(Date other);
+    bool operator<=(Date other);
+ 
 };
