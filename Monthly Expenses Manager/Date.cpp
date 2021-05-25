@@ -2,11 +2,11 @@
 #include "Date.h"
 
 Date::Date(){
-    time_t date = time(0);
+    /*time_t date = time(0);
     tm* currentDate = localtime(&date);
     this->day = currentDate->tm_mday; 
     this->month = (currentDate->tm_mon + 1);
-    this->year = (currentDate->tm_year + 1900);
+    this->year = (currentDate->tm_year + 1900);*/
 
 }
 
