@@ -5,7 +5,6 @@ Date::Date(){
 
 }
 
-
 Date:: Date(int day, int month, int year){
     this->day = day;
     this->month = month;
@@ -26,4 +25,3 @@ int Date::getMonth(){
 int Date::getYear(){
     return this->year;
 }
-

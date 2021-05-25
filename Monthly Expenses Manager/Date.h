@@ -1,21 +1,20 @@
 #pragma once
-
+#include<iostream>
 class Date{
     private:
         int day;
         int month;
         int year;
-        cha date;
     public:
     Date();
     Date(int day, int month, int year);
     int getDay();
     int getMonth();
     int getYear();
-    string toString();
-    bool operator <(Date const &other);
-    bool operator >(Date const &other);
-    bool operator ==(Date const &other);
-    bool operator <=(Date const &other);
-    bool operator >=(Date const &other);
+    std::string toString();
+    bool operator <(const Date& other);
+    bool operator >(const Date& other);
+    bool operator ==(const Date& other);
+    bool operator <=(const Date& other);
+    bool operator >=(const Date& other);
 };
