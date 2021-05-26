@@ -27,6 +27,9 @@
     <ClCompile Include="Wallet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DebitCard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Date.h">
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Wallet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DebitCard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
