@@ -1,10 +1,11 @@
 #pragma once
 #include <string>
 #include "Date.h"
+#include <vector>
 using namespace std;
 class Wallet
 {
-protected:
+private:
 	static unsigned int nextId;
 	string name , category;
 	unsigned long long balance;
@@ -12,15 +13,16 @@ protected:
 	Date monthStartDate;
 
 public:
-	Wallet(string, string, unsigned long long, unsigned int , Date);
+	Wallet(string, string, unsigned long long, unsigned int, unsigned int , Date);
 	void loadNextID();
 	string GetName();
 	string GetCategory();
 	unsigned long long GetBalance();
 	unsigned int GetId();
 	unsigned int GetMonthlyIncome();
-	void deposit(unsigned int);
-	void withdraw(unsigned int);
+	void deposit(int);
+	void withdraw(int);
 	~Wallet();
 };
+
 

@@ -1,15 +1,13 @@
 #include "Wallet.h"
 unsigned int Wallet::nextId = 0;
-Wallet::Wallet(string name, string category, unsigned long long balance, unsigned int monthlyIncome , Date monthStartDate)
+Wallet::Wallet(string name, string category, unsigned long long balance, unsigned int id , unsigned int monthlyIncome , Date monthStartDate)
 {
 	this->name = name;
 	this->category = category;
 	this->balance = balance;
+	this->id = id;
 	this->monthlyIncome = monthlyIncome;
 	this->monthStartDate = monthStartDate;
-
-	this->id = nextId;
-	loadNextID();
 }
 
 void Wallet::loadNextID()
@@ -42,12 +40,12 @@ unsigned int Wallet::GetMonthlyIncome()
 	return monthlyIncome;
 }
 
-void Wallet::deposit(unsigned int value)
+void Wallet::deposit(int value)
 {
 	balance += value;
 }
 
-void Wallet::withdraw(unsigned int value)
+void Wallet::withdraw(int value)
 {
 	if (balance < value)
 		throw "Insufficient balance!";
