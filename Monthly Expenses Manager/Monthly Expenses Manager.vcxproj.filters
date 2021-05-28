@@ -27,7 +27,10 @@
     <ClCompile Include="Wallet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="inform_provider.cpp">
+    <ClCompile Include="InformationProvider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DebitCard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,7 +44,10 @@
     <ClInclude Include="Wallet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="inform_provider.h">
+    <ClInclude Include="InformationProvider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DebitCard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

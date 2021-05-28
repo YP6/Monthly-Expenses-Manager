@@ -36,3 +36,8 @@ Date Expense::getDate()
 {
 	return date;
 }
+
+unsigned int Expense::getWalletId()
+{
+	return walletId;
+}

@@ -5,7 +5,7 @@
 using namespace std;
 class Wallet
 {
-private:
+protected:
 	static unsigned int nextId;
 	string name , category;
 	unsigned long long balance;
@@ -13,7 +13,7 @@ private:
 	Date monthStartDate;
 
 public:
-	Wallet(string, string, unsigned long long, unsigned int, unsigned int , Date);
+	Wallet(string, string, unsigned long long, unsigned int , Date);
 	void loadNextID();
 	string GetName();
 	string GetCategory();

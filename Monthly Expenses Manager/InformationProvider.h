@@ -8,14 +8,14 @@ class InformationProvider
 {
 
 
-private:
+public:
 	vector<Wallet> wallets;
 	vector<Expense> expenses;
 	vector<string> categories;
 
 public:
-	void AddWallet(string, string, unsigned long long, unsigned int, unsigned int, Date);
-	void AddExpense(string, string, double, Date, unsigned int);
+	void AddWallet(Wallet);
+	void AddExpense(Expense);
 	void Add_category(string);
 	Expense SearchExpense(string);
 	int SearchExpense(unsigned int);

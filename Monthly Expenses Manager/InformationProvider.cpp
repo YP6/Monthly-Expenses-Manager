@@ -1,18 +1,32 @@
 #include "InformationProvider.h"
 using namespace std;
 
-void InformationProvider::AddExpense(string name, string category, double cost, Date date, unsigned int walletId)
+//GOOD
+void InformationProvider::AddExpense(Expense expense)
 {
-	Expense exp = Expense(name, category, cost, date, walletId);
-	expenses.push_back(exp);
+	if(!count(categories.begin(), categories.end(), expense.getCategory()))
+	{
+		cout << "Not a right category";
+		return;
+	}
+
+	if (expense.getCost() <= wallets[SearchWallet(expense.getWalletId())].GetBalance())
+	{
+		expenses.push_back(expense);
+		wallets[SearchWallet(expense.getWalletId())].withdraw(expense.getCost());
+	}
+	else {
+		cout<< "In sufficient money";
+	}
 }
 
-void InformationProvider::AddWallet(string name, string category, unsigned long long balance, unsigned int id, unsigned int monthlyIncome, Date monthStartDate)
+//GOOD
+void InformationProvider::AddWallet(Wallet wallet)
 {
-	Wallet newWallet = Wallet(name, category, balance, id, monthlyIncome, monthStartDate);
-	wallets.push_back(newWallet);
+	wallets.push_back(wallet);
 }
 
+//GOOD
 void InformationProvider::Add_category(string newCategory)
 {
 	for (auto c : categories)
@@ -22,6 +36,7 @@ void InformationProvider::Add_category(string newCategory)
 	categories.push_back(newCategory);
 }
 
+//GOOD
 Expense InformationProvider::SearchExpense(string name)
 {
 	for (int i = 0; i < expenses.size(); i++)
@@ -30,6 +45,7 @@ Expense InformationProvider::SearchExpense(string name)
 
 }
 
+//GOOD
 int InformationProvider::SearchExpense(unsigned int Id)
 {
 	for (int i = 0; i < expenses.size(); i++)
@@ -37,6 +53,7 @@ int InformationProvider::SearchExpense(unsigned int Id)
 			return i;
 }
 
+//GOOD
 Wallet InformationProvider::SearchWallet(string name)
 {
 	for (int i = 0; i < wallets.size(); i++)
@@ -45,6 +62,7 @@ Wallet InformationProvider::SearchWallet(string name)
 
 }
 
+//GOOD
 int InformationProvider::SearchWallet(unsigned int Id)
 {
 	for (int i = 0; i < wallets.size(); i++)
@@ -52,26 +70,35 @@ int InformationProvider::SearchWallet(unsigned int Id)
 			return i;
 }
 
+
 void InformationProvider::DeleteWallet(unsigned int id)
 {
 	int index = SearchWallet(id);
 	wallets.erase(wallets.begin() + index);
 }
 
+//GOOD
 void InformationProvider::DeleteExpense(unsigned int id)
 {
 	int index = SearchExpense(id);
+	int cost = expenses[index].getCost();
+	unsigned int walletId = expenses[index].getWalletId();
+	Refund(walletId, cost);
 	expenses.erase(expenses.begin() + index);
 }
 
-void InformationProvider::Refund(unsigned int value, int id)
+//GOOD
+void InformationProvider::Refund(unsigned int id, int value)
 {
 	for (int i = 0; i < wallets.size(); i++)
 	{
 		if (wallets[i].GetId() == id)
+		{
 			wallets[i].deposit(value);
-		else
-			throw "Id not found";
+			return;
+		}
 	}
+
+	throw "ID Not Found!!";
 }
 

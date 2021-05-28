@@ -22,6 +22,7 @@ public:
 	unsigned int getId();
 	double getCost();
 	Date getDate();
+	unsigned int getWalletId();
 };
 
 
