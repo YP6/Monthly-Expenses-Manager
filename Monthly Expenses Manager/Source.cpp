@@ -63,6 +63,24 @@ int main()
 			cout << program.expenses[i].getCost() << "$\n";
 		}
 	}
+	//before
+	cout << "before deleting cib wallet \n\n";
+	for (int i = 0; i < program.expenses.size(); i++)
+	{
+
+		cout << program.wallets[program.SearchWallet(program.expenses[i].getWalletId())].GetName() << "      " << program.expenses[i].getCost() << "$\n";
+
+	}
+	//Delete CIB
+	cout << "After deleting cib wallet \n\n";
+	cout << program.expenses.size() << endl;
+	program.DeleteWallet(program.SearchWallet("QNB").GetId());
+	cout << program.expenses.size() << endl;
+
+	for (int i = 0; i < program.expenses.size(); i++)
+	{
+		cout << program.wallets[program.SearchWallet(program.expenses[i].getWalletId())].GetName()<< "      " << program.expenses[i].getCost() << "$\n";	
+	}
 
 
 	

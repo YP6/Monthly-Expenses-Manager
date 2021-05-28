@@ -74,6 +74,14 @@ int InformationProvider::SearchWallet(unsigned int Id)
 void InformationProvider::DeleteWallet(unsigned int id)
 {
 	int index = SearchWallet(id);
+	for (int i = 0; i < expenses.size(); i++) {
+		if (expenses[i].getWalletId() == id)
+		{
+			DeleteExpense(expenses[i].getId());
+			i--;
+		}
+	}
+			
 	wallets.erase(wallets.begin() + index);
 }
 
