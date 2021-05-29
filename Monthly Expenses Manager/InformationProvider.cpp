@@ -32,7 +32,7 @@ void InformationProvider::Add_category(string newCategory)
 	for (auto c : categories)
 		if (c == newCategory)
 			return;
-
+	categoryFilterName[newCategory] = 0;
 	categories.push_back(newCategory);
 }
 
@@ -108,5 +108,43 @@ void InformationProvider::Refund(unsigned int id, int value)
 	}
 
 	throw "ID Not Found!!";
+}
+vector<Expense> InformationProvider::Filter()
+{
+	vector<Expense> filteredData;
+	for (auto i : expenses)
+	{
+		if (walletFilterID == i.getWalletId())
+		{
+			filteredData.push_back(i);
+		}
+	}
+	if (dateFilter)
+	{
+		for (int i = 0; i < filteredData.size(); i++)
+		{
+			if (!(filteredData[i].getDate() == dateFilterDay))
+			{
+				filteredData.erase(filteredData.begin() + i);
+				i--;
+			}
+		}
+	}
+	if (categoryFilter)
+	{
+		for (int i = 0; i < filteredData.size(); i++)
+		{
+			for (auto x : categoryFilterName)
+			{
+				if (x.first == filteredData[i].getCategory() && x.second == 0)
+				{
+					filteredData.erase(filteredData.begin() + i);
+					i--;
+				}
+
+			}
+		}
+	}
+	return filteredData;
 }
 
