@@ -17,6 +17,7 @@ public:
 	void loadNextID();
 	string GetName();
 	string GetCategory();
+	Date getStartDate();
 	unsigned long long GetBalance();
 	unsigned int GetId();
 	unsigned int GetMonthlyIncome();

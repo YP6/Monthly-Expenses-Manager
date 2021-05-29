@@ -51,6 +51,10 @@ void Wallet::withdraw(int value)
 	balance -= value;
 }
 
+Date Wallet::getStartDate() {
+	return monthStartDate;
+}
+
 Wallet::~Wallet()
 {
 	//call delete wallet function in the infromation provider

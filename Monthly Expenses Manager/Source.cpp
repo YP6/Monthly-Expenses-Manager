@@ -1,6 +1,7 @@
 #include<iostream>
 #include"InformationProvider.h"
 #include "DebitCard.h"
+#include "FileHandler.h"
 using namespace std;
 
 
@@ -93,8 +94,6 @@ int main()
 		cout << i.getName() << "    ";
 		cout << i.getDate().toString() << endl;
 	}
-
-
-	
+	FileHandler::initFile("db.csv", "Test User", "Test Password", program.wallets, program.expenses);
 
 }
