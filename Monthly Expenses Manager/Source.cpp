@@ -95,11 +95,6 @@ int main()
 		cout << i.getDate().toString() << endl;
 	}
 	FileHandler::initFile("db.csv", "Test User", "Test Password", program.wallets, program.expenses);
-	vector<string> data;
-	data = FileHandler::readExpenseRecordByName("db.csv", "Bus");
-	for (int i = 0; i < data.size(); i++)
-	{
-		cout<<data[i] << "\n";
-	}
+	program.expenses = FileHandler::readExpenses("db.csv");
 
 }

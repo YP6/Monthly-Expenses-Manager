@@ -23,6 +23,7 @@ public:
 	unsigned int GetMonthlyIncome();
 	void deposit(int);
 	void withdraw(int);
+	void setID(unsigned int);
 	~Wallet();
 };
 

@@ -41,3 +41,8 @@ unsigned int Expense::getWalletId()
 {
 	return walletId;
 }
+
+void Expense::setId(unsigned int value)
+{
+	this->id = value;
+}

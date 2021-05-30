@@ -51,6 +51,11 @@ void Wallet::withdraw(int value)
 	balance -= value;
 }
 
+void Wallet::setID(unsigned int  value)
+{
+	this->id = value;
+}
+
 Date Wallet::getStartDate() {
 	return monthStartDate;
 }
