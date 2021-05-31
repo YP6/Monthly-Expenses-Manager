@@ -87,14 +87,18 @@ int main()
 	program.categoryFilterName["Shopping"] = 1;
 	program.categoryFilter = 1;
 	program.dateFilter = 0;
-	
+
 	vector<Expense> z = program.Filter();
 	for (auto i : z)
 	{
 		cout << i.getName() << "    ";
 		cout << i.getDate().toString() << endl;
 	}
-	FileHandler::initFile("db.csv", "Test User", "Test Password", program.wallets, program.expenses);
-	program.expenses = FileHandler::readExpenses("db.csv");
+	FileHandler::initFile("db.csv", "Test User", "Test Password", program.wallets, program.expenses, program.categories);
+	program.categories = FileHandler::readCategories("db.csv");
+	for (int i = 0; i < program.categories.size(); i++)
+	{
+		cout << program.categories[i] << endl;
+	}
 
 }
