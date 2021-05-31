@@ -1,0 +1,13 @@
+username,password
+Test User,Test Password
+walletID,name,category,balance,monthlyIncome,monthstartdate
+0,Wallet#1,Cash,7000,3500,1-2-2020
+1,CIB,Credit,17680,10000,1-2-2020
+2,QNB,Credit,400,500,1-2-2020
+expenseID,name,category,cost,date,walletId
+0,T-Shirt,Shopping,200,3-2-2021,1
+1,Bus,Transport,20,5-2-2021,1
+2,Food,Home,100,3-2-2021,1
+4,Taxi,Transport,600,3-2-2021,2
+5,Mobile,Personal,1000,6-2-2021,2
+3,Mobile,Shopping,2000,6-2-2021,1

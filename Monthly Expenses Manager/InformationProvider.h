@@ -3,11 +3,11 @@
 #include "Expense.h"
 #include "Date.h"
 #include <map>
+#include <stack>
 using namespace std;
 
 class InformationProvider
 {
-
 
 public:
 	vector<Wallet> wallets;
@@ -17,6 +17,8 @@ public:
 	unsigned int walletFilterID;
 	map<string, bool>categoryFilterName;
 	Date dateFilterDay;
+	stack<Expense> UndoExpenseChange, RedoExpenseChange;
+	stack<Wallet> UndoWalletChange, RedoWalletChange;
 
 public:
 	void AddWallet(Wallet);
