@@ -5,10 +5,11 @@
 #include <string>
 
 using namespace std;
-void FileHandler::initFile(string fileName, string username, string password, vector<Wallet> wallets, vector<Expense> expenses)
+void FileHandler::initFile(string fileName, string username, string password, vector<Wallet> wallets, vector<Expense> expenses, vector<string>categories)
 {
 	int numOfWallets = wallets.size();
 	int numOfExpenses = expenses.size();
+	int numOfCategories = categories.size();
 
 	ofstream file(fileName, ios_base::app);
 
@@ -23,6 +24,12 @@ void FileHandler::initFile(string fileName, string username, string password, ve
 	file << "expenseID" << "," << "name" << "," << "category" << "," << "cost" << "," << "date" << "," << "walletId" << endl;
 	for (int i = 0; i < numOfExpenses; i++) {
 		file << expenses[i].getId() << "," << expenses[i].getName() << "," << expenses[i].getCategory() << "," << expenses[i].getCost() << "," << expenses[i].getDate().getDay() << "-" << expenses[i].getDate().getMonth() << "-" << expenses[i].getDate().getYear() << "," << expenses[i].getWalletId() << endl;
+	}
+
+	file << "categories" << endl;
+	for (int i = 0; i < numOfCategories; i++)
+	{
+		file << categories[i] << endl;
 	}
 	file.close();
 
@@ -201,7 +208,7 @@ vector<Wallet> FileHandler::readWallets(string fileName) {
 			inRange = 1;
 			continue;
 		}
-		if (record.find("expenseID")!= -1) {
+		if (record.find("expenseID") != -1) {
 			inRange = 0;
 			break;
 		}
@@ -211,36 +218,36 @@ vector<Wallet> FileHandler::readWallets(string fileName) {
 			int index = record.find(",");
 			walletId = record.substr(0, index);
 			record.erase(0, index + 1);
-			
+
 			//Name
 			index = record.find(",");
 			name = record.substr(0, index);
 			record.erase(0, index + 1);
-			
+
 			//Category
 			index = record.find(",");
 			category = record.substr(0, index);
 			record.erase(0, index + 1);
-			
+
 			//Balance
 			index = record.find(",");
 			balance = record.substr(0, index);
 			record.erase(0, index + 1);
-			
+
 			//Monthly Income
 			index = record.find(",");
 			monthlyIncome = record.substr(0, index);
 			record.erase(0, index + 1);
-			
+
 			//MonthStartDate
 			monthStartDate = record;
 
 			unsigned int castedId = stoul(walletId, nullptr, 10);
-			string castedName = name; 
+			string castedName = name;
 			string castedCategory = category;
 			unsigned long long castedBalance = stoull(balance, nullptr, 10);
 			unsigned int castedMonthlyIncome = stoul(monthlyIncome, nullptr, 10);
-			
+
 			index = monthStartDate.find("/");
 			int day = stoi(monthStartDate.substr(0, index));
 			monthStartDate.erase(0, index + 1);
@@ -254,17 +261,16 @@ vector<Wallet> FileHandler::readWallets(string fileName) {
 			int year = stoi(monthStartDate);
 
 			Date date(day, month, year);
-			
+
 			Wallet wallet(castedName, castedCategory, castedBalance, castedMonthlyIncome, date);
 			wallet.setID(castedId);
 
 			records.push_back(wallet);
-			
+
 		}
 	}
 	return records;
 }
-
 vector<Expense> FileHandler::readExpenses(string fileName)
 {
 
@@ -281,21 +287,18 @@ vector<Expense> FileHandler::readExpenses(string fileName)
 
 	bool inRange = 0;
 	int userCount = 0;
-	
+
 	while (getline(file, record, '\n'))
 	{
 		if (record.find("expenseID") != -1) {
 			inRange = 1;
 			continue;
 		}
-		if (record.find("username") != -1 && userCount == 1) {
+		if (record.find("categories") != -1 ) {
 			inRange = 0;
 			break;
 		}
-		if (record.find("username") != -1) {
-			userCount++;
-		}
-		
+
 		if (inRange) {
 
 			//ID
@@ -320,7 +323,7 @@ vector<Expense> FileHandler::readExpenses(string fileName)
 
 			//Monthly Income
 			index = record.find(",");
-			date= record.substr(0, index);
+			date = record.substr(0, index);
 			record.erase(0, index + 1);
 
 			//MonthStartDate
@@ -355,4 +358,39 @@ vector<Expense> FileHandler::readExpenses(string fileName)
 		}
 	}
 	return records;
+}
+vector<string> FileHandler::readCategories(string fileName) {
+
+
+	vector<string> records;
+
+	ifstream file(fileName);
+	string record;
+
+	bool inRange = 0;
+	int userCount = 0;
+
+	while (getline(file, record, '\n'))
+	{
+		if (record.find("categories") != -1) {
+			inRange = 1;
+			continue;
+		}
+		if (record.find("username") != -1 && userCount == 1) {
+			inRange = 0;
+			break;
+		}
+		if (record.find("username") != -1) {
+			userCount++;
+		}
+
+		if (inRange) {
+
+			//CATEGORY
+			records.push_back(record);
+
+		}
+	}
+	return records;
+
 }

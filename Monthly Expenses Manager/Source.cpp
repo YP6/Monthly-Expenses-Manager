@@ -94,9 +94,8 @@ int main()
 	program.AddExpense(Expense("Mobile2", "Personal", 1000, Date(6, 2, 2021), program.SearchWallet("CIB").GetId()));
 	vector<Expense> f = program.Filter();
 	for (auto i : f)
-	{
-		cout << i.getName() << "  " << i.getCost() << "$" << endl;
-	}
+
+
 	cout << program.Filter().size()<<endl;
 	program.UndoExpense();
 	program.UndoExpense();
@@ -117,6 +116,7 @@ int main()
 
 	
 	
+
 
 
 }
