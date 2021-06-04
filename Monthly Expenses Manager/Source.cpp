@@ -31,16 +31,16 @@ int main()
 	Expense expense("T-Shirt", "Shopping", 200, Date(3, 2, 2021), program.SearchWallet("CIB").GetId());
 	Expense expense1("Bus", "Transport", 20, Date(5, 2, 2021), program.SearchWallet("CIB").GetId());
 	Expense expense2("Food", "Home", 100, Date(3, 2, 2021), program.SearchWallet("CIB").GetId());
-	Expense expense5("Mobile", "Shopping", 2000, Date(6, 2, 2021), program.SearchWallet("CIB").GetId());
 	Expense expense3("Taxi", "Transport", 600, Date(3, 2, 2021), program.SearchWallet("QNB").GetId());
 	Expense expense4("Mobile", "Personal", 1000, Date(6, 2, 2021), program.SearchWallet("QNB").GetId());
+	Expense expense5("Mobile", "Shopping", 2000, Date(6, 2, 2021), program.SearchWallet("CIB").GetId());
 
-	program.AddExpense(expense);
+	/*program.AddExpense(expense);
 	program.AddExpense(expense1);
-	program.AddExpense(expense2);
+	program.AddExpense(expense2);*/
 	program.AddExpense(expense3);
 	program.AddExpense(expense4);
-	program.AddExpense(expense5);
+	//program.AddExpense(expense5);
 
 
 	cout << program.SearchWallet("Wallet#1").GetBalance() << "$\n";
@@ -83,18 +83,40 @@ int main()
 	//	cout << program.wallets[program.SearchWallet(program.expenses[i].getWalletId())].GetName()<< "      " << program.expenses[i].getCost() << "$\n";	
 	//}
 	program.walletFilterID = 1;
-	program.dateFilterDay = Date(3, 2, 2021);
+	/*program.dateFilterDay = Date(3, 2, 2021);
 	program.categoryFilterName["Shopping"] = 1;
 	program.categoryFilter = 1;
-	program.dateFilter = 0;
-	
-	vector<Expense> z = program.Filter();
-	for (auto i : z)
+	program.dateFilter = 0;*/
+	program.AddExpense(expense); //T-shirt
+	program.AddExpense(expense1); //Bus
+	program.AddExpense(expense2); //Food
+	program.AddExpense(expense5); //Mobile
+	program.AddExpense(Expense("Mobile2", "Personal", 1000, Date(6, 2, 2021), program.SearchWallet("CIB").GetId()));
+	vector<Expense> f = program.Filter();
+	for (auto i : f)
 	{
-		cout << i.getName() << "    ";
-		cout << i.getDate().toString() << endl;
+		cout << i.getName() << "  " << i.getCost() << "$" << endl;
 	}
-	FileHandler::initFile("db.csv", "Test User", "Test Password", program.wallets, program.expenses);
-	program.expenses = FileHandler::readExpenses("db.csv");
+	cout << program.Filter().size()<<endl;
+	program.UndoExpense();
+	program.UndoExpense();
+	program.UndoExpense();
+	cout << program.Filter().size() << endl;
+	cout << endl << program.UndoExpenseChange.top().getChange().getName() << endl;
+
+
+	f = program.Filter();
+	cout << f.size()<<endl;
+	cout << "-----After Undo-----\n\n";
+	for (int i = 0; i < f.size(); i++)
+	{
+		cout << f[i].getName()<<endl;
+	}
+
+
+
+	
+	
+
 
 }

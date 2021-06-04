@@ -153,6 +153,7 @@
     <ClInclude Include="Expense.h" />
     <ClInclude Include="FileHandler.h" />
     <ClInclude Include="InformationProvider.h" />
+    <ClInclude Include="Operation.h" />
     <ClInclude Include="Wallet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

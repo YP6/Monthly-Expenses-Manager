@@ -14,6 +14,7 @@ protected:
 
 public:
 	Wallet(string, string, unsigned long long, unsigned int , Date);
+	Wallet() {}
 	void loadNextID();
 	string GetName();
 	string GetCategory();
