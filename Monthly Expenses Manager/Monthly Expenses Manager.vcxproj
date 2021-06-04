@@ -148,11 +148,13 @@
     <ClCompile Include="Wallet.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="addCategory.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="DebitCard.h" />
     <ClInclude Include="Expense.h" />
     <ClInclude Include="FileHandler.h" />
     <ClInclude Include="InformationProvider.h" />
+    <ClInclude Include="logInAndRegister.h" />
     <ClInclude Include="Wallet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

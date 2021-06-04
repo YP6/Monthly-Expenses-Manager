@@ -5,7 +5,16 @@
 #include <string>
 
 using namespace std;
-void FileHandler::initFile(string fileName, string username, string password, vector<Wallet> wallets, vector<Expense> expenses, vector<string>categories)
+
+void FileHandler::initFileUser(string fileName, string username, string password)
+{
+	ofstream file(fileName);
+	file << "username" << "," << "password" << endl;
+	file << username << "," << password << endl;
+	file.close();
+
+}
+void FileHandler::initFileContent(string fileName, vector<Wallet> wallets, vector<Expense> expenses, vector<string>categories)
 {
 	int numOfWallets = wallets.size();
 	int numOfExpenses = expenses.size();
@@ -13,8 +22,6 @@ void FileHandler::initFile(string fileName, string username, string password, ve
 
 	ofstream file(fileName, ios_base::app);
 
-	file << "username" << "," << "password" << endl;
-	file << username << "," << password << endl;
 
 	file << "walletID" << "," << "name" << "," << "category" << "," << "balance" << "," << "monthlyIncome" << "," << "monthstartdate" << endl;
 	for (int i = 0; i < numOfWallets; i++) {

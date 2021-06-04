@@ -11,7 +11,8 @@ using namespace std;
 class FileHandler
 {
 public:
-	static void initFile(string fileName, string, string, vector<Wallet>, vector<Expense>,vector<string>);
+	static void initFileUser(string,string, string);
+	static void initFileContent(string fileName,  vector<Wallet>, vector<Expense>,vector<string>);
 	static vector<string> readUserRecord(string);
 	static	vector<string> readWalletRecordById(string, string);
 	static	vector<string> readWalletRecordByName(string, string);
