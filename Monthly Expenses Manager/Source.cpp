@@ -35,15 +35,27 @@ int main()
 	Expense expense4("Mobile", "Personal", 1000, Date(6, 2, 2021), program.SearchWallet("QNB").GetId());
 	Expense expense5("Mobile", "Shopping", 2000, Date(6, 2, 2021), program.SearchWallet("CIB").GetId());
 
-	/*program.AddExpense(expense);
+	program.AddExpense(expense);
 	program.AddExpense(expense1);
-	program.AddExpense(expense2);*/
+	program.AddExpense(expense2);
 	program.AddExpense(expense3);
 	program.AddExpense(expense4);
-	//program.AddExpense(expense5);
+	program.AddExpense(expense5);
 
-
-	cout << program.SearchWallet("Wallet#1").GetBalance() << "$\n";
+	program.DeleteWallet(program.SearchWallet("QNB").GetId());
+	cout << "before undo - ------------------------------------ " << endl;
+	for (auto i : program.expenses)
+	{
+		cout << i.getName() << endl;
+	}
+	cout << "\n\nafter undo ----------------------------------------" << endl;
+	program.UndoWallet();
+	for (auto i : program.expenses)
+	{
+		cout << i.getName() << endl;
+	}
+	
+	//cout << program.SearchWallet("Wallet#1").GetBalance() << "$\n";
 
 	////delete expense
 	//for (int i = 0; i < program.expenses.size(); i++)
@@ -82,12 +94,12 @@ int main()
 	//{
 	//	cout << program.wallets[program.SearchWallet(program.expenses[i].getWalletId())].GetName()<< "      " << program.expenses[i].getCost() << "$\n";	
 	//}
-	program.walletFilterID = 1;
+	//program.walletFilterID = 1;
 	/*program.dateFilterDay = Date(3, 2, 2021);
 	program.categoryFilterName["Shopping"] = 1;
 	program.categoryFilter = 1;
 	program.dateFilter = 0;*/
-	program.AddExpense(expense); //T-shirt
+	/*program.AddExpense(expense); //T-shirt
 	program.AddExpense(expense1); //Bus
 	program.AddExpense(expense2); //Food
 	program.AddExpense(expense5); //Mobile
@@ -113,7 +125,7 @@ int main()
 	for (int i = 0; i < f.size(); i++)
 	{
 		cout << f[i].getName()<<endl;
-	}
+	}*/
 
 
 

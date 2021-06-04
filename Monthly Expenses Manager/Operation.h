@@ -15,6 +15,7 @@ public:
 	Operation(T change, operations op);
 	T getChange();
 	operations getOperation();
+	
 };
 
 template<class T>

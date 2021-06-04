@@ -38,8 +38,8 @@ public:
 	void Refund(unsigned int, int);
 	vector<Expense> Filter();
 	void UndoExpense();
-	
 	void UndoWallet();
+	void reUndoWalletExpenses(Wallet wallet);
 	
 
 

@@ -25,6 +25,9 @@ void InformationProvider::AddExpense(Expense expense)
 //GOOD
 void InformationProvider::AddWallet(Wallet wallet)
 {
+	Operation<Wallet>temp(wallet, operations::insert);
+	UndoWalletChange.push(temp);
+	canWalletUndo = true;
 	wallets.push_back(wallet);
 }
 
@@ -96,6 +99,8 @@ int InformationProvider::SearchWallet(unsigned int Id)
 void InformationProvider::DeleteWallet(unsigned int id)
 {
 	int index = SearchWallet(id);
+	
+	
 	for (int i = 0; i < expenses.size(); i++) {
 		if (expenses[i].getWalletId() == id)
 		{
@@ -103,8 +108,9 @@ void InformationProvider::DeleteWallet(unsigned int id)
 			i--;
 		}
 	}
-	
-			
+	Operation<Wallet>temp(wallets[index], operations::remove1);
+	UndoWalletChange.push(temp);
+	canWalletUndo = true;
 	wallets.erase(wallets.begin() + index);
 }
 
@@ -115,7 +121,7 @@ void InformationProvider::DeleteExpense(unsigned int id)
 	int cost = expenses[index].getCost();
 	unsigned int walletId = expenses[index].getWalletId();
 	Refund(walletId, cost);
-	UndoExpenseChange.push(Operation<Expense>(expenses[index], operations::remove1));
+    UndoExpenseChange.push(Operation<Expense>(expenses[index], operations::remove1));
 	canExpenseUndo = true;
 	expenses.erase(expenses.begin() + index);
 }
@@ -195,6 +201,36 @@ void InformationProvider::UndoExpense()
 	}
 
 	
+}
+
+void InformationProvider::UndoWallet()
+{
+	if (canWalletUndo)
+	{
+		Operation<Wallet>temp = UndoWalletChange.top();
+		// if insert fa ha remove
+		if (temp.getOperation() == operations::insert)
+		{
+			DeleteWallet(temp.getChange().GetId());
+			UndoWalletChange.pop();
+		}
+		//if remove fa ha insert
+		else if (temp.getOperation() == operations::remove1)
+		{
+			AddWallet(temp.getChange());
+			reUndoWalletExpenses(temp.getChange());
+			UndoWalletChange.pop();
+		}
+	}
+	UndoWalletChange.pop();
+	canWalletUndo = UndoWalletChange.size();
+}
+void InformationProvider::reUndoWalletExpenses(Wallet wallet)
+{
+	while (UndoExpenseChange.top().getChange().getWalletId() == wallet.GetId())
+	{
+		UndoExpense();
+	}
 }
 
 
