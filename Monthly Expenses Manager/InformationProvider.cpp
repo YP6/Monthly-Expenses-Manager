@@ -14,6 +14,8 @@ void InformationProvider::AddExpense(Expense expense)
 	{
 		expenses.push_back(expense);
 		wallets[SearchWallet(expense.getWalletId())].withdraw(expense.getCost());
+		UndoExpenseChange.push(Operation<Expense>(expense, operations::insert));
+		canExpenseUndo = true;
 	}
 	else {
 		cout<< "In sufficient money";
@@ -43,6 +45,26 @@ Expense InformationProvider::SearchExpense(string name)
 		if (expenses[i].getName() == name)
 			return expenses[i];
 
+}
+
+vector<Expense> InformationProvider::SearchExpense(string name, string walletName)
+{
+	vector<Expense> tmp;
+	for (int i = 0; i < expenses.size(); i++)
+		if (expenses[i].getName() == name && expenses[i].getWalletId() == SearchWallet(walletName).GetId())
+			tmp.push_back(expenses[i]);
+
+	return tmp;
+}
+
+vector<Expense> InformationProvider::SearchExpense(string name, unsigned int id)
+{
+	vector<Expense> tmp;
+	for (int i = 0; i < expenses.size(); i++)
+		if (expenses[i].getName() == name && expenses[i].getWalletId() == id)
+			tmp.push_back(expenses[i]);
+
+	return tmp;
 }
 
 //GOOD
@@ -81,6 +103,7 @@ void InformationProvider::DeleteWallet(unsigned int id)
 			i--;
 		}
 	}
+	
 			
 	wallets.erase(wallets.begin() + index);
 }
@@ -92,6 +115,8 @@ void InformationProvider::DeleteExpense(unsigned int id)
 	int cost = expenses[index].getCost();
 	unsigned int walletId = expenses[index].getWalletId();
 	Refund(walletId, cost);
+	UndoExpenseChange.push(Operation<Expense>(expenses[index], operations::remove1));
+	canExpenseUndo = true;
 	expenses.erase(expenses.begin() + index);
 }
 
@@ -147,4 +172,29 @@ vector<Expense> InformationProvider::Filter()
 	}
 	return filteredData;
 }
+
+void InformationProvider::UndoExpense()
+{
+	if (canExpenseUndo)
+	{
+		Operation<Expense> tmp = UndoExpenseChange.top();
+		//If i inserted then now remove1
+		if (tmp.getOperation() == operations::insert)
+		{
+			DeleteExpense(tmp.getChange().getId());
+			UndoExpenseChange.pop();
+		}
+		//If i remove1d then now i insert
+		else if (tmp.getOperation() == operations::remove1)
+		{
+			AddExpense(tmp.getChange());
+			UndoExpenseChange.pop();
+		}
+		UndoExpenseChange.pop();
+		canExpenseUndo = UndoExpenseChange.size();
+	}
+
+	
+}
+
 

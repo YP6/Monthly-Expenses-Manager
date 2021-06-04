@@ -17,6 +17,7 @@ private:
 public:
 	static void loadNextId();
 	Expense(string,string, double , Date , unsigned int);
+	Expense() {}
 	string getName();
 	string getCategory();
 	unsigned int getId();
