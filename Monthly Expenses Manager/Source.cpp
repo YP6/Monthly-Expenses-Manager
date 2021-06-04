@@ -2,6 +2,8 @@
 #include"InformationProvider.h"
 #include "DebitCard.h"
 #include "FileHandler.h"
+#include "logInAndRegister.h"
+#include "addCategory.h"
 using namespace std;
 
 
@@ -21,6 +23,8 @@ int main()
 	program.Add_category("Transport");
 	program.Add_category("Home");
 	program.Add_category("Shopping");
+	
+
 
 	/*for (auto i : program.categories)
 	{
@@ -98,6 +102,7 @@ int main()
 	/*program.dateFilterDay = Date(3, 2, 2021);
 	program.categoryFilterName["Shopping"] = 1;
 	program.categoryFilter = 1;
+
 	program.dateFilter = 0;*/
 	/*program.AddExpense(expense); //T-shirt
 	program.AddExpense(expense1); //Bus
@@ -106,9 +111,11 @@ int main()
 	program.AddExpense(Expense("Mobile2", "Personal", 1000, Date(6, 2, 2021), program.SearchWallet("CIB").GetId()));
 	vector<Expense> f = program.Filter();
 	for (auto i : f)
+
 	{
 		cout << i.getName() << " " << i.getCost() << "$"<<endl;
 	}
+
 
 
 	cout << program.Filter().size()<<endl;
@@ -125,7 +132,30 @@ int main()
 	for (int i = 0; i < f.size(); i++)
 	{
 		cout << f[i].getName()<<endl;
+
 	}*/
+
+
+	}
+
+
+	userSignUp("db.csv");
+	FileHandler::initFileContent("db.csv", program.wallets, program.expenses, program.categories);
+	bool l = logIn("db.csv");
+
+	cout << "bool value :" << l<<endl;
+	getCategoryFromUser(&program);
+	
+	for (int i = 0; i < program.categories.size(); i++)
+	{
+		cout << program.categories[i]<<endl;
+
+	}
+	
+
+
+
+
 
 
 

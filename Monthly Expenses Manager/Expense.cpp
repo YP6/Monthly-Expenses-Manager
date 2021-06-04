@@ -1,3 +1,4 @@
+#pragma once
 #include "Expense.h"
 unsigned int Expense::nextId = 0;
 Expense::Expense(string name, string category, double cost, Date date , unsigned int walletId)

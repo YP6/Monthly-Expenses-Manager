@@ -56,6 +56,12 @@
     <ClInclude Include="FileHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="logInAndRegister.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="addCategory.h">
+       <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Operation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
