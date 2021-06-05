@@ -383,7 +383,7 @@ vector<string> FileHandler::readCategories(string fileName) {
 			inRange = 1;
 			continue;
 		}
-		if (record.find("username") != -1 && userCount == 1) {
+		if (record.find("username") != -1 && userCount == 2) {
 			inRange = 0;
 			break;
 		}

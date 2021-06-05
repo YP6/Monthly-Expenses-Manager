@@ -2,7 +2,7 @@
 #include "InformationProvider.h"
 #include <string>
 
- void getCategoryFromUser(InformationProvider *temp)
+void getCategoryFromUser(InformationProvider *temp)
 {
 	string category;
 	cout << "Enter category name: ";
