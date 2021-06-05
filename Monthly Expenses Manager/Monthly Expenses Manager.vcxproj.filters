@@ -60,9 +60,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="addCategory.h">
-       <Filter>Header Files</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Operation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="showExpenses.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
