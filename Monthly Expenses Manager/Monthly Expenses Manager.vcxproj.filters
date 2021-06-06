@@ -68,5 +68,8 @@
     <ClInclude Include="showExpenses.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="addExpense.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

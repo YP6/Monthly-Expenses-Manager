@@ -9,6 +9,52 @@ using namespace std;
 
 int main()
 {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	InformationProvider program;
 
 	/* 

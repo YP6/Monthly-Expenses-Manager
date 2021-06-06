@@ -153,6 +153,7 @@
     <ClInclude Include="DebitCard.h" />
     <ClInclude Include="Expense.h" />
     <ClInclude Include="FileHandler.h" />
+    <ClInclude Include="addExpense.h" />
     <ClInclude Include="InformationProvider.h" />
     <ClInclude Include="logInAndRegister.h" />
     <ClInclude Include="Operation.h" />

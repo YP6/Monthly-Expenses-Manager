@@ -16,7 +16,7 @@ private:
 
 public:
 	static void loadNextId();
-	Expense(string,string, double , Date , unsigned int);
+	Expense(string name, string category, double cost, Date date, unsigned int walletId);
 	Expense() {}
 	string getName();
 	string getCategory();
