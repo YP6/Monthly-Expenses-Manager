@@ -15,7 +15,6 @@ void InformationProvider::AddExpense(Expense expense)
 		expenses.push_back(expense);
 		wallets[SearchWallet(expense.getWalletId())].withdraw(expense.getCost());
 		UndoExpenseChange.push(Operation<Expense>(expense, operations::insert));
-		canExpenseUndo = true;
 	}
 	else {
 		cout<< "In sufficient money";
@@ -28,7 +27,6 @@ void InformationProvider::AddWallet(Wallet wallet)
 	{
 		Operation<Wallet>temp(wallet, operations::insert);
 		UndoWalletChange.push(temp);
-		canWalletUndo = true;
 		wallets.push_back(wallet);
 	}
 	else throw "Wallet Name Is Taken";
@@ -116,13 +114,13 @@ void InformationProvider::DeleteWallet(unsigned int id)
 	for (int i = 0; i < expenses.size(); i++) {
 		if (expenses[i].getWalletId() == id)
 		{
+			UndoExpenseByWallet.push(Operation<Expense>(expenses[i], operations::remove1));
 			DeleteExpense(expenses[i].getId());
 			i--;
 		}
 	}
 	Operation<Wallet>temp(wallets[index], operations::remove1);
 	UndoWalletChange.push(temp);
-	canWalletUndo = true;
 	wallets.erase(wallets.begin() + index);
 }
 
@@ -134,7 +132,6 @@ void InformationProvider::DeleteExpense(unsigned int id)
 	unsigned int walletId = expenses[index].getWalletId();
 	Refund(walletId, cost);
     UndoExpenseChange.push(Operation<Expense>(expenses[index], operations::remove1));
-	canExpenseUndo = true;
 	expenses.erase(expenses.begin() + index);
 }
 
@@ -193,32 +190,33 @@ vector<Expense> InformationProvider::Filter()
 
 void InformationProvider::UndoExpense()
 {
-	if (canExpenseUndo)
+	if (UndoExpenseChange.size() == 0)
+		return;
+
+	Operation<Expense> tmp = UndoExpenseChange.top();
+	//If i inserted then now remove1
+	if (tmp.getOperation() == operations::insert)
 	{
-		Operation<Expense> tmp = UndoExpenseChange.top();
-		//If i inserted then now remove1
-		if (tmp.getOperation() == operations::insert)
-		{
-			DeleteExpense(tmp.getChange().getId());
-			UndoExpenseChange.pop();
-		}
-		//If i remove1d then now i insert
-		else if (tmp.getOperation() == operations::remove1)
-		{
-			AddExpense(tmp.getChange());
-			UndoExpenseChange.pop();
-		}
+		DeleteExpense(tmp.getChange().getId());
 		UndoExpenseChange.pop();
-		canExpenseUndo = UndoExpenseChange.size();
 	}
+	//If i remove1d then now i insert
+	else if (tmp.getOperation() == operations::remove1)
+	{
+		AddExpense(tmp.getChange());
+		UndoExpenseChange.pop();
+	}
+	UndoExpenseChange.pop();
+	
 
 	
 }
 
 void InformationProvider::UndoWallet()
 {
-	if (canWalletUndo)
-	{
+	if (UndoWalletChange.size() == 0)
+		return;
+	
 		Operation<Wallet>temp = UndoWalletChange.top();
 		// if insert fa ha remove
 		if (temp.getOperation() == operations::insert)
@@ -233,15 +231,16 @@ void InformationProvider::UndoWallet()
 			reUndoWalletExpenses(temp.getChange());
 			UndoWalletChange.pop();
 		}
-	}
+	
 	UndoWalletChange.pop();
-	canWalletUndo = UndoWalletChange.size();
+	
 }
 void InformationProvider::reUndoWalletExpenses(Wallet wallet)
 {
-	while (UndoExpenseChange.top().getChange().getWalletId() == wallet.GetId())
+	while (UndoExpenseByWallet.size()!=0 && UndoExpenseByWallet.top().getChange().getWalletId() == wallet.GetId())
 	{
-		UndoExpense();
+		expenses.push_back(UndoExpenseByWallet.top().getChange());
+		UndoExpenseByWallet.pop();
 	}
 }
 

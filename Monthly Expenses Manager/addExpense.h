@@ -10,7 +10,7 @@ void getExpenseFromUser(InformationProvider* temp, unsigned int walletId)
 {
 
 	int walletsSize = temp->wallets.size();
-
+	system("CLS");
 	string name, category;
 	double cost;
 	int day, month, year;

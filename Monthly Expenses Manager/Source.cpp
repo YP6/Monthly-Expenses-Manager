@@ -35,17 +35,13 @@ int main()
 	program->AddExpense(expense2);
 	program->AddExpense(expense3);
 	program->AddExpense(expense4);
-	program->AddExpense(expense5);/*
-	MainMenu(program);*/
+	program->AddExpense(expense5);
+
+	MainMenu(program);
 
 
 
-	getExpenseFromUser(program,1);
-
-
-
-
-
+	//getExpenseFromUser(program,1);
 
 
 
@@ -85,10 +81,11 @@ int main()
 
 
 
-<<<<<<< Updated upstream
-=======
-	
->>>>>>> Stashed changes
+
+
+
+
+
 
 	/* 
 	This line must be called before initilazing user & file content & getCategoryFromUser.

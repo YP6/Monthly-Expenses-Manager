@@ -3,27 +3,34 @@
 #include"InformationProvider.h"
 #include <stdlib.h>
 #include "InputChecker.h"
-
-
+#include "addCategory.h"
+#include "addExpense.h"
+#include <stack>
+#include "showExpenses.h"
 using namespace std;
 void AddWallet(InformationProvider*);
 void ShowWallets(InformationProvider* program);
 void WalletInfo(InformationProvider* program, int index);
 
+//Na2es Search - Filter
+
 void MainMenu(InformationProvider* program)
 {
-	
 	while (true)
 	{
+		while (!program->UndoExpenseChange.empty())
+			program->UndoExpenseChange.pop();
+
 		system("CLS");
 		cout << "---------------------------- Choose one of this option ----------------------------\n" << endl;
 		cout << "-Press (a) to add a new Wallet" << endl; //DONE
 		cout << "-Press (r) to remove a new Wallet" << endl; 
 		cout << "-Press (u) to undo last change" << endl;
 		cout << "-Press (v) to view your wallets" << endl; 
+		cout << "-Press (c) to add expense category" << endl;
 		cout << "-Press (0) to Logout" << endl;
 		
-		char choice = getData<char>("Please choose one of the choices :  ", true, vector <char> {'a' , 'r' , 'u' , 'v', '0'});
+		char choice = getData<char>("Please choose one of the choices :  ", true, vector <char> {'a' , 'r' , 'u' , 'v', 'c' ,'0'});
 		
 		if (choice == 'a')
 		{
@@ -46,12 +53,22 @@ void MainMenu(InformationProvider* program)
 				break;
 			}
 			else {
-				WalletInfo(program, choice - 1);
+				char c = getData<char>("are you sure you want to add this data ? (y / n) : ", 1, vector <char> {'y', 'n'});
+				if (c == 'y')
+				{
+					program->DeleteWallet(program->wallets[choice - 1].GetId());
+				}
+				
+				
 			}
 		}
 		else if (choice == 'u')
 		{
-			program->UndoWallet();
+			char c = getData<char>("are you sure you want to undo last change ? (y / n) : ", 1, vector <char> {'y', 'n'});
+			if (c == 'y')
+			{
+				program->UndoWallet();
+			}
 		}
 		else if (choice == 'v')
 		{
@@ -77,6 +94,10 @@ void MainMenu(InformationProvider* program)
 				}
 			}
 		}
+		else if (choice == 'c')
+		{
+			getCategoryFromUser(program);
+		}
 	}
 
 }
@@ -89,7 +110,7 @@ void AddWallet(InformationProvider* program)
 	getline(cin, walletName);
 	cout << "Please Enter the name of the category : ";
 	string categoryName;
-	cin.ignore();
+	//cin.ignore();
 	getline(cin, categoryName);
 	long int w = getData<long int>("Please Enter the balance of your wallet : ");
 	unsigned int walletBalance = (w > 0)?w:-w;
@@ -120,6 +141,9 @@ void AddWallet(InformationProvider* program)
 }
 void ShowWallets(InformationProvider* program)
 {
+
+	while (!program->UndoExpenseChange.empty())
+		program->UndoExpenseChange.pop();
 	system("CLS");
 	cout << "---------------------------- Your Wallets ----------------------------\n\n";
 	for (int i = 0; i < program->wallets.size(); i++)
@@ -141,6 +165,7 @@ void ShowWallets(InformationProvider* program)
 }
 void WalletInfo(InformationProvider* program, int index)
 {
+
 	while (true)
 	{
 		Wallet wallet = program->wallets[index];
@@ -162,28 +187,50 @@ void WalletInfo(InformationProvider* program, int index)
 			break;
 		else if (choice == 'a')
 		{
-			//Add New Expense
+			getExpenseFromUser(program, program->wallets[index].GetId());
 		}
 		else if (choice == 'b')
 		{
 			int amount = getData<int>("Enter amount you want to add : ");
 
-			char choice = getData<char>("are you sure you want to add this data ? (y / n) : ", 1, vector <char> {'y', 'n'});
-			if (choice == 'y')
+			char c = getData<char>("are you sure you want to add this data ? (y / n) : ", 1, vector <char> {'y', 'n'});
+			if (c == 'y')
 				program->wallets[index].deposit(amount);
 
 		}
 		else if (choice == 'v')
 		{
-
+			program->walletFilterID = program->wallets[index].GetId();
+			showExpenses(program);
+			cout << "-Press any key to go back\n";
+			int choice = getData<int>("Please Enter Your Choice : ", true, vector<int>{0});
+				
 		}
 		else if (choice == 'r')
 		{
+			vector<int> choices = showExpenses(program);
+			choices.push_back(0);
+
+			cout << "-Press the number of expense you want to delete\n";
+			cout << "-Press (0) to go back\n";
+			int c = getData<int>("Please Enter Your Choice : ", true, choices);
+			if (c != 0)
+			{
+				char cc = getData<char>("are you sure you want to delete this expense ? (y / n) : ", 1, vector <char> {'y', 'n'});
+				if (cc == 'y'){
+					program->DeleteExpense(program->Filter()[c - 1].getId());
+				}
+			}
+			
+
 
 		}
 		else if (choice == 'u')
 		{
-
+			char cc = getData<char>("are you sure you want to undo last change ? (y / n) : ", 1, vector <char> {'y', 'n'});
+			if (cc == 'y') {
+				program->UndoExpense();
+			}
 		}
 		else if (choice == 's')
 		{

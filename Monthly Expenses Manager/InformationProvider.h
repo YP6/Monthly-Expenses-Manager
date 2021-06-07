@@ -20,7 +20,8 @@ public:
 	Date dateFilterDay;
 	stack<Operation<Expense>> UndoExpenseChange;
 	stack<Operation<Wallet>> UndoWalletChange;
-	bool canExpenseUndo, canWalletUndo;
+	stack<Operation<Expense>> UndoExpenseByWallet;
+	
 
 
 public:
