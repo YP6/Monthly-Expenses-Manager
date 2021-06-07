@@ -25,6 +25,7 @@ public:
 
 public:
 	void AddWallet(Wallet);
+	bool AddWalletCheck(Wallet wallet);
 	void AddExpense(Expense);
 	void Add_category(string);
 	Expense SearchExpense(string);

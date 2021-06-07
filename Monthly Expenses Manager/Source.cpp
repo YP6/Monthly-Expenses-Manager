@@ -85,6 +85,10 @@ int main()
 
 
 
+<<<<<<< Updated upstream
+=======
+	
+>>>>>>> Stashed changes
 
 	/* 
 	This line must be called before initilazing user & file content & getCategoryFromUser.

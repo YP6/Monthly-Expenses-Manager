@@ -22,14 +22,26 @@ void InformationProvider::AddExpense(Expense expense)
 	}
 }
 
-//GOOD
 void InformationProvider::AddWallet(Wallet wallet)
 {
-	Operation<Wallet>temp(wallet, operations::insert);
-	UndoWalletChange.push(temp);
-	canWalletUndo = true;
-	wallets.push_back(wallet);
+	if (AddWalletCheck(wallet))
+	{
+		Operation<Wallet>temp(wallet, operations::insert);
+		UndoWalletChange.push(temp);
+		canWalletUndo = true;
+		wallets.push_back(wallet);
+	}
+	else throw "Wallet Name Is Taken";
 }
+bool InformationProvider::AddWalletCheck(Wallet wallet)
+{
+	for (auto w : wallets)
+	{
+		if (w.GetName() == wallet.GetName())return 0;
+	}
+	return 1;
+}
+
 
 //GOOD
 void InformationProvider::Add_category(string newCategory)
