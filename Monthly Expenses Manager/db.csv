@@ -1,17 +1,20 @@
 username,password
 test username,test password
 walletID,name,category,balance,monthlyIncome,monthstartdate
-0,Wallet#1,Cash,7000,3500,1-2-2020
-1,CIB,Credit,19780,10000,1-2-2020
-2,QNB,Credit,400,500,1-2-2020
+0,Pocket Wallet,Cash,4780,2000,22-3-2021
+1,CIB,Credit Card,198088,10000,22-3-2021
+2,QNB,Debit Card,1400,1300,22-3-2021
 expenseID,name,category,cost,date,walletId
+0,T-Shirt,Shopping,200,3-2-2021,0
+1,Bus,Transport,20,5-2-2021,0
+2,Food,Home,100,3-2-2021,1
 3,Taxi,Transport,600,3-2-2021,2
 4,Mobile,Personal,1000,6-2-2021,2
-0,T-Shirt,Shopping,200,3-2-2021,1
-1,Bus,Transport,20,5-2-2021,1
+5,Mobile,Shopping,2000,6-2-2021,1
+6,s,Shopping,12,12-12-12,1
 categories
-Personal
+Shopping
 Transport
 Home
-Shopping
-trhh
+Personal
+Education

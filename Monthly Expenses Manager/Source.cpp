@@ -5,6 +5,7 @@
 #include "logInAndRegister.h"
 #include "addCategory.h"
 #include "Menu.h"
+#include "addExpense.h"
 using namespace std;
 
 
@@ -13,7 +14,7 @@ int main()
 
 	InformationProvider* program = new InformationProvider();
 	program->AddWallet(Wallet("Pocket Wallet", "Cash", 5000, 2000, Date(22, 3, 2021)));
-	program->AddWallet(Wallet("CIB", "Credit Card", 20000, 10000, Date(22, 3, 2021)));
+	program->AddWallet(Wallet("CIB", "Credit Card", 200200, 10000, Date(22, 3, 2021)));
 	program->AddWallet(Wallet("QNB", "Debit Card", 3000, 1300, Date(22, 3, 2021)));
 
 	program->Add_category("Shopping");
@@ -34,8 +35,12 @@ int main()
 	program->AddExpense(expense2);
 	program->AddExpense(expense3);
 	program->AddExpense(expense4);
-	program->AddExpense(expense5);
-	MainMenu(program);
+	program->AddExpense(expense5);/*
+	MainMenu(program);*/
+
+
+
+	getExpenseFromUser(program,1);
 
 
 
@@ -75,7 +80,11 @@ int main()
 
 
 
-	InformationProvider program;
+
+
+
+
+
 
 	/* 
 	This line must be called before initilazing user & file content & getCategoryFromUser.

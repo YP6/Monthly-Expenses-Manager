@@ -155,7 +155,9 @@
     <ClInclude Include="FileHandler.h" />
     <ClInclude Include="addExpense.h" />
     <ClInclude Include="InformationProvider.h" />
+    <ClInclude Include="InputChecker.h" />
     <ClInclude Include="logInAndRegister.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Operation.h" />
     <ClInclude Include="showExpenses.h" />
     <ClInclude Include="Wallet.h" />
