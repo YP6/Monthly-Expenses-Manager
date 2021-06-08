@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <iostream>
 #include"InformationProvider.h"
 #include <stdlib.h>
@@ -11,6 +11,10 @@ using namespace std;
 void AddWallet(InformationProvider*);
 void ShowWallets(InformationProvider* program);
 void WalletInfo(InformationProvider* program, int index);
+void FilterOption(InformationProvider* program);
+void FilterByCategory(InformationProvider* program);
+void FilterByDate(InformationProvider* program);
+void SearchExpenseMenu(InformationProvider* program);
 
 //Na2es Search - Filter
 
@@ -181,8 +185,9 @@ void WalletInfo(InformationProvider* program, int index)
 		cout << "-Press (r) to remove expense" << endl;
 		cout << "-Press (u) to undo last change" << endl;
 		cout << "-Press (s) to search for expense" << endl;
+		cout << "-Press (f) to edit filter options " << endl;
 		cout << "-Press (0) to go back" << endl;
-		char choice = getData<char>("Please Enter Your Choice : ", true, vector<char>{'0', 'a', 'b', 'v', 'r', 'u', 's'});
+		char choice = getData<char>("Please Enter Your Choice : ", true, vector<char>{'0', 'a', 'b', 'v', 'r', 'u', 's' , 'f'});
 		if (choice == '0')
 			break;
 		else if (choice == 'a')
@@ -201,14 +206,14 @@ void WalletInfo(InformationProvider* program, int index)
 		else if (choice == 'v')
 		{
 			program->walletFilterID = program->wallets[index].GetId();
-			showExpenses(program);
+			showExpenses(program->Filter());
 			cout << "-Press any key to go back\n";
 			int choice = getData<int>("Please Enter Your Choice : ", true, vector<int>{0});
 				
 		}
 		else if (choice == 'r')
 		{
-			vector<int> choices = showExpenses(program);
+			vector<int> choices = showExpenses(program->Filter());
 			choices.push_back(0);
 
 			cout << "-Press the number of expense you want to delete\n";
@@ -234,8 +239,105 @@ void WalletInfo(InformationProvider* program, int index)
 		}
 		else if (choice == 's')
 		{
-
+			SearchExpenseMenu(program);
+		}
+		else if (choice == 'f')
+		{
+			FilterOption(program);
 		}
 		
 	}
+}
+void FilterOption(InformationProvider* program)
+{
+	while (true)
+	{
+		
+
+		system("CLS");
+
+		cout << "Date Filter : " << ((program->dateFilter)? "Enabled": "Disabled" )<< endl;
+		cout << "Categroy Filter : " << ((program->categoryFilter)? "Endabled" : "Disabled" )<< endl;
+		cout << "-Press (d) to toggle date filter" << endl;
+		cout << "-Press (c) to toggle category filter" << endl;
+		cout << "-Press (t) to edit category filter " << endl;
+		cout << "-Press (x) to edit date filter" << endl;
+		cout << "-Press (0) to go back" << endl;
+		char choice = getData<char>("Please Enter Your Choice : ", true, vector<char>{'d', 'c', 't', 'x', '0'});
+		if (choice == 'd')
+		{
+			program->dateFilter = (!program->dateFilter);
+		}
+		else if (choice == 'c')
+		{
+			program->categoryFilter = (!program->categoryFilter);
+		}
+		else if (choice == 't')
+		{
+			FilterByCategory(program);
+		}
+		else if (choice == 'x')
+		{
+			FilterByDate(program);
+		}
+		else if (choice == '0')
+		{
+			return;
+		}
+	}
+}
+void FilterByCategory(InformationProvider *program)
+{
+	while (true)
+	{
+		system("CLS");
+		cout << "------------------------------------------------------------------------------\n";
+		int counter = 1;
+		vector <int>choices;
+		for (auto x : program->categoryFilterName)
+		{
+			cout << "(" << counter++ << ") " << x.first << " : " << ((x.second == 1) ? "Checked" : "Not Checked") << endl;
+			choices.push_back(counter - 1);
+		}
+		choices.push_back(0);
+		cout << "------------------------------------------------------------------------------\n";
+		cout << "-Press category number to toggle it : " << endl;
+		cout << "-Press (0) to go back" << endl;
+		int c = getData<int>("Please Enter Your Choice : ", true, choices);
+		counter = 1;
+		if (c == 0)
+			break;
+		for (auto x : program->categoryFilterName)
+		{
+			if (counter == c)
+			{
+				program->categoryFilterName[x.first] = (!program->categoryFilterName[x.first]);
+				break;
+			}
+			counter++;
+		}
+	}
+}
+void FilterByDate(InformationProvider* program)
+{
+		system("CLS");
+		int day = getData<int>("Enter a day : ");
+		int month = getData<int>("Enter a month : ");
+		int year = getData<int>("Enter a year : ");
+		program->dateFilterDay = Date(day, month, year);		
+		
+}
+void SearchExpenseMenu(InformationProvider * program)
+{
+	system("CLS");
+	cout << "Enter the name of the expense : ";
+	string name;
+	cin.ignore();
+	getline(cin, name);
+	showExpenses(program->SearchExpense(name, program->walletFilterID));
+	cout << "Press any key to go back : ";
+	string s;
+	cin >> s;
+
+
 }

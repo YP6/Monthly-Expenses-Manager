@@ -17,7 +17,11 @@ void InformationProvider::AddExpense(Expense expense)
 		UndoExpenseChange.push(Operation<Expense>(expense, operations::insert));
 	}
 	else {
-		cout<< "In sufficient money";
+		cout<< "In sufficient money" << endl;
+		cout << "Press Any Key to Go Back : ";
+		string s;
+		cin >> s;
+
 	}
 }
 
@@ -73,9 +77,17 @@ vector<Expense> InformationProvider::SearchExpense(string name, string walletNam
 vector<Expense> InformationProvider::SearchExpense(string name, unsigned int id)
 {
 	vector<Expense> tmp;
+	for (int i = 0; i < name.size(); i++)
+		name[i] = tolower(name[i]);
+	string s;
 	for (int i = 0; i < expenses.size(); i++)
-		if (expenses[i].getName() == name && expenses[i].getWalletId() == id)
+	{
+		s = expenses[i].getName();
+		for (int j = 0; j < s.size(); j++)
+			s[j] = tolower(s[j]);
+		if (s.find(name) != -1 && expenses[i].getWalletId() == id)
 			tmp.push_back(expenses[i]);
+	}
 
 	return tmp;
 }
@@ -180,6 +192,7 @@ vector<Expense> InformationProvider::Filter()
 				{
 					filteredData.erase(filteredData.begin() + i);
 					i--;
+					break;
 				}
 
 			}

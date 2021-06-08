@@ -6,12 +6,16 @@
 
 using namespace std;
 
-vector<int> showExpenses(InformationProvider* temp)
+vector<int> showExpenses(vector<Expense> showedData)
 {
 	vector<int> choices;
-	vector<Expense> showedData = temp->Filter();
-	int showedDataSize = showedData.size();
 	system("CLS");
+	if (showedData.size() == 0)
+	{
+		cout << "No Data Found!";
+		return vector<int>{0};
+	}
+	int showedDataSize = showedData.size();
 	for (int i = 0; i < showedDataSize; i++) {
 		cout << "Expense number "<< "(" << i + 1 << ") :" << endl;
 		cout << "	Name: " << showedData[i].getName() << endl;

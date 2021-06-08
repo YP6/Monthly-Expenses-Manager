@@ -25,6 +25,9 @@ int main()
 
 	Expense expense("T-Shirt", "Shopping", 200, Date(3, 2, 2021), program->SearchWallet("Pocket Wallet").GetId());
 	Expense expense1("Bus", "Transport", 20, Date(5, 2, 2021), program->SearchWallet("Pocket Wallet").GetId());
+	Expense expense7("Mobile Phone", "Shopping", 200, Date(3, 2, 2021), program->SearchWallet("Pocket Wallet").GetId());
+	Expense expense8("Cell phone", "Shopping", 20, Date(5, 2, 2021), program->SearchWallet("Pocket Wallet").GetId());
+	Expense expense9("phoneee", "Shopping", 20, Date(5, 2, 2021), program->SearchWallet("Pocket Wallet").GetId());
 	Expense expense2("Food", "Home", 100, Date(3, 2, 2021), program->SearchWallet("CIB").GetId());
 	Expense expense3("Taxi", "Transport", 600, Date(3, 2, 2021), program->SearchWallet("QNB").GetId());
 	Expense expense4("Mobile", "Personal", 1000, Date(6, 2, 2021), program->SearchWallet("QNB").GetId());
@@ -36,6 +39,9 @@ int main()
 	program->AddExpense(expense3);
 	program->AddExpense(expense4);
 	program->AddExpense(expense5);
+	program->AddExpense(expense7);
+	program->AddExpense(expense8);
+	program->AddExpense(expense9);
 
 	MainMenu(program);
 
