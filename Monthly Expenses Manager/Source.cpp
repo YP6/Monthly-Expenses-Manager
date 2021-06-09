@@ -58,18 +58,7 @@ int main()
 
 		MainMenu();
 
-		/*program->AddWallet(Wallet("Pocket Wallet", "Cash", 5000, 2000, Date(22, 3, 2021)));
-		program->AddWallet(Wallet("CIB", "Credit Card", 20000, 10000, Date(22, 3, 2021)));
-		program->AddWallet(Wallet("QNB", "Debit Card", 3000, 1300, Date(22, 3, 2021)));
-		Expense expense("T-Shirt", "Shopping", 200, Date(3, 2, 2021), program->SearchWallet("Pocket Wallet").GetId());
-		Expense expense1("Bus", "Transport", 20, Date(5, 2, 2021), program->SearchWallet("Pocket Wallet").GetId());
-		Expense expense7("Mobile Phone", "Shopping", 200, Date(3, 2, 2021), program->SearchWallet("Pocket Wallet").GetId());
-		Expense expense8("Cell phone", "Shopping", 20, Date(5, 2, 2021), program->SearchWallet("Pocket Wallet").GetId());
-		Expense expense9("phoneee", "Shopping", 20, Date(5, 2, 2021), program->SearchWallet("Pocket Wallet").GetId());
-		Expense expense2("Food", "Home", 100, Date(3, 2, 2021), program->SearchWallet("QNB").GetId());
-		Expense expense3("Taxi", "Transport", 600, Date(3, 2, 2021), program->SearchWallet("QNB").GetId());
-		Expense expense4("Mobile", "Personal", 1000, Date(6, 2, 2021), program->SearchWallet("QNB").GetId());
-		Expense expense5("Mobile", "Shopping", 2000, Date(6, 2, 2021), program->SearchWallet("QNB").GetId());*/
+		
 
 
 	}

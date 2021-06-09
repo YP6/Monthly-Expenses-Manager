@@ -3,7 +3,8 @@
 #include <string>
 #include "InformationProvider.h"
 #include "FileHandler.h"
-extern InformationProvider* program;
+#include "InputChecker.h"
+ extern InformationProvider* program;
 extern string Username, Password;
 
 bool logIn(string fileName)
@@ -12,7 +13,7 @@ bool logIn(string fileName)
 	cout << "------------------------------ Welcome Again! ------------------------------\n";
 	vector<string> userInfo = FileHandler::readUserRecord(fileName);
 	vector<string> userEnteredData(2);
-		cin.ignore();
+	cin.ignore();
 	while (true)
 	{
 		cout << "Please Enter Your Username : ";
@@ -39,6 +40,12 @@ void userSignUp(string fileName)
 {
 	system("CLS");
 	cout << "------------------------------ Sign Up ------------------------------\n";
+	cout << "Warning : The Previous Account will be deleted!\n";
+	char c = getData<char>("are you sure you want to continue ? (y / n) : ", 1, vector <char> {'y', 'n'});
+	if (c == 'n')
+	{
+		return;
+	}
 	string username, password, passwordConfirmation;
 	cout << "Please Enter Your Username : ";
 	cin.ignore();
