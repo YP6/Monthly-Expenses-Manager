@@ -50,9 +50,6 @@
     <ClInclude Include="InformationProvider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DebitCard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="FileHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>

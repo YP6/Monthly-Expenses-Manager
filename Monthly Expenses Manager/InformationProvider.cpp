@@ -127,6 +127,7 @@ void InformationProvider::DeleteWallet(unsigned int id)
 		if (expenses[i].getWalletId() == id)
 		{
 			UndoExpenseByWallet.push(Operation<Expense>(expenses[i], operations::remove1));
+			wallets[index].withdraw(expenses[i].getCost());
 			DeleteExpense(expenses[i].getId());
 			i--;
 		}

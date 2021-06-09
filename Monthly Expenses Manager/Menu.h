@@ -7,18 +7,20 @@
 #include "addExpense.h"
 #include <stack>
 #include "showExpenses.h"
+#include "InformationProvider.h";
+
 using namespace std;
-void AddWallet(InformationProvider*);
-void ShowWallets(InformationProvider* program);
-void WalletInfo(InformationProvider* program, int index);
-void FilterOption(InformationProvider* program);
-void FilterByCategory(InformationProvider* program);
-void FilterByDate(InformationProvider* program);
-void SearchExpenseMenu(InformationProvider* program);
+void AddWallet();
+void ShowWallets();
+void WalletInfo(int index);
+void FilterOption();
+void FilterByCategory();
+void FilterByDate();
+void SearchExpenseMenu();
 
-//Na2es Search - Filter
 
-void MainMenu(InformationProvider* program)
+
+void MainMenu()
 {
 	while (true)
 	{
@@ -38,11 +40,11 @@ void MainMenu(InformationProvider* program)
 		
 		if (choice == 'a')
 		{
-			AddWallet(program);
+			AddWallet();
 		}
 		else if (choice == 'r')
 		{
-			ShowWallets(program);
+			ShowWallets();
 			cout << "-Press the number of the wallet that you want to remove" << endl;
 			cout << "-Press (0) to go back" << endl;
 			vector<int> choices;
@@ -54,7 +56,7 @@ void MainMenu(InformationProvider* program)
 			int choice = getData<int>("Please Enter Your Choice : ", true, choices);
 			if (choice == 0)
 			{
-				break;
+				continue;
 			}
 			else {
 				char c = getData<char>("are you sure you want to add this data ? (y / n) : ", 1, vector <char> {'y', 'n'});
@@ -68,10 +70,36 @@ void MainMenu(InformationProvider* program)
 		}
 		else if (choice == 'u')
 		{
-			char c = getData<char>("are you sure you want to undo last change ? (y / n) : ", 1, vector <char> {'y', 'n'});
-			if (c == 'y')
+			system("CLS");
+			if (program->UndoWalletChange.size() == 0)
 			{
-				program->UndoWallet();
+				cout << "There is nothing to undo! press any key to go back : ";
+				string s;
+				cin >> s;
+			}
+			else {
+				Operation<Wallet> action = program->UndoWalletChange.top();
+				cout << "------------------------------------------------------------------------------------------\n";
+				cout << "Wallet Name : " << action.getChange().GetName() << "  (" << action.getChange().GetCategory() << ")\n";
+				cout << "-- Balance : " << action.getChange().GetBalance() << "$\n";
+				cout << "-- Monthly Income : " << action.getChange().GetMonthlyIncome() << endl;
+				cout << "------------------------------------------------------------------------------------------\n\n";
+				
+				
+				if (action.getOperation() == operations::insert)
+				{
+					cout << "Are your sure you want to delete this wallet ? (y / n) : ";
+				}
+				else
+				{
+					cout << "Are your sure you want to return this wallet ? (y / n) : ";
+				}
+				char c = getData<char>("", 1, vector <char> {'y', 'n'});
+				if (c == 'y')
+				{
+				
+					program->UndoWallet();
+				}
 			}
 		}
 		else if (choice == 'v')
@@ -79,14 +107,15 @@ void MainMenu(InformationProvider* program)
 			//Choose Wallet
 			while (true)
 			{
-				ShowWallets(program);
+				ShowWallets();
 				cout << "-Press the number of a wallet to open it" << endl;
 				cout << "-Press (0) to go back" << endl;
 				vector<int> choices;
 				choices.push_back(0);
-				for (int i = 0; i < program->expenses.size(); i++)
+				for (int i = 0; i < program->wallets.size(); i++)
 				{
 					choices.push_back(i + 1);
+					cout << i + 1<<endl;
 				}
 				int choice = getData<int>("Please Enter Your Choice : ", true, choices);
 				if (choice == 0)
@@ -94,18 +123,22 @@ void MainMenu(InformationProvider* program)
 					break;
 				}
 				else {
-					WalletInfo(program, choice - 1);
+					WalletInfo(choice - 1);
 				}
 			}
 		}
 		else if (choice == 'c')
 		{
-			getCategoryFromUser(program);
+			getCategoryFromUser();
+		}
+		else if (choice == '0')
+		{
+			return;
 		}
 	}
 
 }
-void AddWallet(InformationProvider* program)
+void AddWallet()
 {
     system("CLS");
 	string walletName;
@@ -143,7 +176,7 @@ void AddWallet(InformationProvider* program)
 		}
 	}
 }
-void ShowWallets(InformationProvider* program)
+void ShowWallets()
 {
 
 	while (!program->UndoExpenseChange.empty())
@@ -167,7 +200,7 @@ void ShowWallets(InformationProvider* program)
 	}
 	
 }
-void WalletInfo(InformationProvider* program, int index)
+void WalletInfo(int index)
 {
 
 	while (true)
@@ -192,7 +225,7 @@ void WalletInfo(InformationProvider* program, int index)
 			break;
 		else if (choice == 'a')
 		{
-			getExpenseFromUser(program, program->wallets[index].GetId());
+			getExpenseFromUser(program->wallets[index].GetId());
 		}
 		else if (choice == 'b')
 		{
@@ -232,23 +265,50 @@ void WalletInfo(InformationProvider* program, int index)
 		}
 		else if (choice == 'u')
 		{
-			char cc = getData<char>("are you sure you want to undo last change ? (y / n) : ", 1, vector <char> {'y', 'n'});
-			if (cc == 'y') {
-				program->UndoExpense();
+			system("CLS");
+			if (program->UndoExpenseChange.size() == 0)
+			{
+				cout << "There is nothing to undo! press any key to go back : ";
+				string s;
+				cin >> s;
 			}
+			else {
+				Operation<Expense> action = program->UndoExpenseChange.top();
+				cout << "------------------------------------------------------------------------------------------\n";
+				cout << "	Name: " << action.getChange().getName() << endl;
+				cout << "	Category: " << action.getChange().getCategory() << endl;
+				cout << "	Cost: " << action.getChange().getCost() << endl;
+				cout << "	Date: " << action.getChange().getDate().getDay() << "-" << action.getChange().getDate().getMonth() << "-" << action.getChange().getDate().getYear() << endl;
+				cout << "------------------------------------------------------------------------------------------\n";
+				if (action.getOperation() == operations::insert)
+				{
+					cout << "Are your sure you want to delete this expense ? (y / n) : ";
+				}
+				else
+				{
+					cout << "Are your sure you want to return this expense ? (y / n) : ";
+				}
+				char cc = getData<char>("", 1, vector <char> {'y', 'n'});
+				if (cc == 'y')
+				{
+					program->UndoExpense();
+				}
+			}
+
+			
 		}
 		else if (choice == 's')
 		{
-			SearchExpenseMenu(program);
+			SearchExpenseMenu();
 		}
 		else if (choice == 'f')
 		{
-			FilterOption(program);
+			FilterOption();
 		}
 		
 	}
 }
-void FilterOption(InformationProvider* program)
+void FilterOption()
 {
 	while (true)
 	{
@@ -274,11 +334,11 @@ void FilterOption(InformationProvider* program)
 		}
 		else if (choice == 't')
 		{
-			FilterByCategory(program);
+			FilterByCategory();
 		}
 		else if (choice == 'x')
 		{
-			FilterByDate(program);
+			FilterByDate();
 		}
 		else if (choice == '0')
 		{
@@ -286,7 +346,7 @@ void FilterOption(InformationProvider* program)
 		}
 	}
 }
-void FilterByCategory(InformationProvider *program)
+void FilterByCategory()
 {
 	while (true)
 	{
@@ -318,7 +378,7 @@ void FilterByCategory(InformationProvider *program)
 		}
 	}
 }
-void FilterByDate(InformationProvider* program)
+void FilterByDate()
 {
 		system("CLS");
 		int day = getData<int>("Enter a day : ");
@@ -327,7 +387,7 @@ void FilterByDate(InformationProvider* program)
 		program->dateFilterDay = Date(day, month, year);		
 		
 }
-void SearchExpenseMenu(InformationProvider * program)
+void SearchExpenseMenu()
 {
 	system("CLS");
 	cout << "Enter the name of the expense : ";

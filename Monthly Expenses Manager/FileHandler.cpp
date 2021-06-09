@@ -255,12 +255,12 @@ vector<Wallet> FileHandler::readWallets(string fileName) {
 			unsigned long long castedBalance = stoull(balance, nullptr, 10);
 			unsigned int castedMonthlyIncome = stoul(monthlyIncome, nullptr, 10);
 
-			index = monthStartDate.find("/");
+			index = monthStartDate.find("-");
 			int day = stoi(monthStartDate.substr(0, index));
 			monthStartDate.erase(0, index + 1);
 
 
-			index = monthStartDate.find("/");
+			index = monthStartDate.find("-");
 			int month = stoi(monthStartDate.substr(0, index));
 			monthStartDate.erase(0, index + 1);
 
@@ -343,15 +343,16 @@ vector<Expense> FileHandler::readExpenses(string fileName)
 			unsigned long long castedCost = stoull(cost, nullptr, 10);
 			unsigned int castedWalletId = stoul(walletId, nullptr, 10);
 
-			index = date.find("/");
+			index = date.find("-");
 			int day = stoi(date.substr(0, index));
 			date.erase(0, index + 1);
-
-
-			index = date.find("/");
+			cout <<endl<< date<<endl;
+			cout << endl << day << endl;
+			index = date.find("-");
 			int month = stoi(date.substr(0, index));
 			date.erase(0, index + 1);
-
+			cout << endl << date << endl;
+			cout << endl << month << endl;
 
 			int year = stoi(date);
 

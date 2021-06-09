@@ -150,7 +150,6 @@
   <ItemGroup>
     <ClInclude Include="addCategory.h" />
     <ClInclude Include="Date.h" />
-    <ClInclude Include="DebitCard.h" />
     <ClInclude Include="Expense.h" />
     <ClInclude Include="FileHandler.h" />
     <ClInclude Include="addExpense.h" />
