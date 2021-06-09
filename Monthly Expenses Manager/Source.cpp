@@ -8,9 +8,15 @@
 using namespace std;
 
 InformationProvider* program = new InformationProvider();
-
+string Username, Password;
+void save()
+{
+	FileHandler::initFileUser("db.csv", Username, Password);
+	FileHandler::initFileContent("db.csv", program->wallets, program->expenses, program->categories);
+}
 int main()
 {
+	atexit(save);
 	while (true)
 	{
 		while (true)
@@ -64,8 +70,6 @@ int main()
 		Expense expense3("Taxi", "Transport", 600, Date(3, 2, 2021), program->SearchWallet("QNB").GetId());
 		Expense expense4("Mobile", "Personal", 1000, Date(6, 2, 2021), program->SearchWallet("QNB").GetId());
 		Expense expense5("Mobile", "Shopping", 2000, Date(6, 2, 2021), program->SearchWallet("QNB").GetId());*/
-
-
 
 
 	}

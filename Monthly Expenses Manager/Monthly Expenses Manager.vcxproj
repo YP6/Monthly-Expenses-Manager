@@ -140,7 +140,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Date.cpp" />
-    <ClCompile Include="DebitCard.cpp" />
     <ClCompile Include="Expense.cpp" />
     <ClCompile Include="FileHandler.cpp" />
     <ClCompile Include="InformationProvider.cpp" />

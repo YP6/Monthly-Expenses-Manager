@@ -4,6 +4,7 @@
 #include "InformationProvider.h"
 #include "FileHandler.h"
 extern InformationProvider* program;
+extern string Username, Password;
 
 bool logIn(string fileName)
 {
@@ -22,6 +23,8 @@ bool logIn(string fileName)
 		getline(cin, userEnteredData[1]);
 		if (userInfo[0] == userEnteredData[0] && userInfo[1] == userEnteredData[1])
 		{
+			Username = userEnteredData[0];
+			Password = userEnteredData[1];
 			return 1;
 		}
 		else

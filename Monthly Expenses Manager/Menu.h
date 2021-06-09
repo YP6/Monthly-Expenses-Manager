@@ -115,7 +115,6 @@ void MainMenu()
 				for (int i = 0; i < program->wallets.size(); i++)
 				{
 					choices.push_back(i + 1);
-					cout << i + 1<<endl;
 				}
 				int choice = getData<int>("Please Enter Your Choice : ", true, choices);
 				if (choice == 0)
@@ -317,7 +316,7 @@ void FilterOption()
 		system("CLS");
 
 		cout << "Date Filter : " << ((program->dateFilter)? "Enabled": "Disabled" )<< endl;
-		cout << "Categroy Filter : " << ((program->categoryFilter)? "Endabled" : "Disabled" )<< endl;
+		cout << "Categroy Filter : " << ((program->categoryFilter)? "Enabled" : "Disabled" )<< endl;
 		cout << "-Press (d) to toggle date filter" << endl;
 		cout << "-Press (c) to toggle category filter" << endl;
 		cout << "-Press (t) to edit category filter " << endl;
